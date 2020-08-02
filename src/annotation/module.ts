@@ -3,7 +3,7 @@ import { RequestHandler } from 'express';
 import { Container, injectable } from 'inversify';
 import { Module, Controller, Service, Model, Base, Subscription } from '../declarations';
 import { RouteType } from '../declarations/controller';
-import { controllerContainer, modelContainer, serviceContainer } from '../declarations/inversify';
+import { controllerContainer, modelContainer, serviceContainer, subscriptionContainer } from '../declarations/inversify';
 
 declare interface ModuleType {
   modules?: Array<new () => Module>;
@@ -79,6 +79,7 @@ function module(config: ModuleType = {}) {
     loadInContainer(controllerContainer, this.config.controller);
     loadInContainer(serviceContainer, this.config.service);
     loadInContainer(modelContainer, this.config.model);
+    loadInContainer(subscriptionContainer, this.config.subscription);
   }
 
   return function decorator(target: new () => Module) {
